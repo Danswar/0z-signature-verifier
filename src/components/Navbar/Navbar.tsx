@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ChainSelector from "./ChainSelector";
 
 interface NavbarProps {
   showSearch?: boolean;
@@ -27,7 +26,7 @@ const Navbar: React.FC<NavbarProps> = ({ showSearch = true }) => {
                 />
               </svg>
               <span className="ml-2 text-xl font-bold text-gray-900 hidden sm:inline-block">
-                Railgun Explorer
+                0z Signature Verification
               </span>
               <span className="ml-2 text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
                 Beta
@@ -35,7 +34,6 @@ const Navbar: React.FC<NavbarProps> = ({ showSearch = true }) => {
             </Link>
           </div>
           <div className="flex items-center">
-            <ChainSelector />
             <a
               href={process.env.REACT_APP_GITHUB_URL}
               target="_blank"

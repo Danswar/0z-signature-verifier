@@ -1,7 +1,6 @@
 import React, { createContext, useContext } from "react";
 import { RailgunConfigurations } from "../models/railgun-configurations";
 import { NetworkName } from "@railgun-community/shared-models";
-import { useConsumeQueryParams } from "../hooks/useConsumeQueryParam";
 import { useRailgunConfigurations } from "../hooks/railgun-configurations.hook";
 
 const AppConfigurationsContext = createContext<
@@ -25,20 +24,10 @@ export const useAppConfigurations = () => {
 export const AppConfigurationsProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
-  const getInitialQueryParam = useConsumeQueryParams();
   const { data, isLoading } = useRailgunConfigurations();
 
-  const supportedNetworks = [
-    NetworkName.Ethereum,
-    NetworkName.BNBChain,
-    NetworkName.Arbitrum,
-    NetworkName.Polygon,
-  ];
-
   return (
-    <AppConfigurationsContext.Provider
-      value={{ ...data, supportedNetworks, getInitialQueryParam }}
-    >
+    <AppConfigurationsContext.Provider value={{ ...data }}>
       {isLoading ? null : children}
     </AppConfigurationsContext.Provider>
   );

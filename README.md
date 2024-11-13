@@ -1,4 +1,4 @@
-# Railgun React Explorer
+# 0z Signature Verification
 
 ## Setup
 

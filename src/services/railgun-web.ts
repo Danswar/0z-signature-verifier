@@ -8,6 +8,9 @@ import {
   refreshBalances,
   getWalletTransactionHistory,
   unloadProvider,
+  getEngine,
+  createRailgunWallet,
+  getRailgunAddress,
 } from "@railgun-community/wallet";
 import {
   NETWORK_CONFIG,
@@ -18,6 +21,9 @@ import {
 } from "@railgun-community/shared-models";
 import localforage from "localforage";
 import Level from "level-js";
+
+const encryptionKey =
+  "0101010101010101010101010101010101010101010101010101010101010101";
 
 const createArtifactStore = () => {
   return new ArtifactStore(
@@ -69,9 +75,6 @@ export const queryWalletBalance = async (
   onUpdateBalance: (balances: RailgunBalancesEvent) => void,
   onUpdateHistory: (history: TransactionHistoryItem[]) => void
 ) => {
-  const encryptionKey =
-    "0101010101010101010101010101010101010101010101010101010101010101";
-
   const creationBlockNumberMap = 0;
 
   const viewOnlyWalletInfo = await createViewOnlyRailgunWallet(
@@ -102,7 +105,15 @@ export const queryWalletBalance = async (
   onUpdateHistory(history);
 };
 
-export { loadProvider, unloadProvider };
+const create0zWalletFromMnemonic = async (mnemonic: string) => {
+  const wallet = await createRailgunWallet(encryptionKey, mnemonic, 0);
+  return wallet;
+};
 
-
-
+export {
+  loadProvider,
+  unloadProvider,
+  getEngine,
+  create0zWalletFromMnemonic,
+  getRailgunAddress,
+};
